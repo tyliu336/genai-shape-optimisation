@@ -1,21 +1,21 @@
 # 用生成式 AI 做建筑形态优化
 
-这是我在 UCL 做的一个实验项目。我想验证一件事：如果把环境数据和生成式 AI 连起来，模型能不能根据一个连续的数值，产生可以进入风环境和热舒适分析的建筑形态。
+如果把环境数据和生成式 AI 连起来，模型能不能根据一个连续的数值，产生可以进入风环境和热舒适分析的建筑形态。
 
 最后搭出来的流程是：环境数据 → 图像编辑 → 2D 转 3D → 风和太阳辐射模拟 → UTCI 热舒适评分。
 
 ![Workflow](assets/workflow.png)
 
-## 我测试了什么
+## 测试了什么
 
-我设置了四组对照：
+设置了四组对照：
 
 1. Stable Diffusion
 2. Stable Diffusion + LoRA
 3. Flux-2
 4. Flux-2 + LoRA
 
-实验中尽量固定输入图、种子、提示词、denoise、CFG、步数、采样器和调度器，只改变模型或控制方式。我训练并配置了一个控制建筑圆角变化的 Concept Slider LoRA，测试的 scale 从 0.0 到 1.3。
+实验中固定输入图、种子、提示词、denoise、CFG、步数、采样器和调度器，只改变模型或控制方式。训练并配置了一个控制建筑圆角变化的 Concept Slider LoRA，测试的 scale 从 0.0 到 1.3。
 
 输入建筑：
 
@@ -23,7 +23,7 @@
 
 ## 2D 转 3D 和模拟
 
-我比较了 Tripo 单视图、Tripo 多视图和 ByteDance 单视图三种路线，再把生成的模型放进 Rhino / Grasshopper，通过 Butterfly、Ladybug 和 UTCI 进行环境评价。
+先比较了 Tripo 单视图、Tripo 多视图和 ByteDance 单视图三种路线，再把生成的模型放进 Rhino / Grasshopper，通过 Butterfly、Ladybug 和 UTCI 进行环境评价。
 
 评分脚本读取 UTCI 热力图，并计算三个部分：
 
@@ -33,7 +33,7 @@
 
 `assets/simulation-samples/` 中放了四张同一控制值下的模拟结果，`data/scores/` 中是四组实验的评分表。
 
-## 我得到的结论
+## 结论
 
 - Tripo 对 14 组输入都能完成技术转换，但部分模型会失真。
 - ByteDance 在两类测试中的有效率分别是 57% 和 71%。
